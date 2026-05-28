@@ -7,10 +7,24 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const error = searchParams.get("error");
 
+  const stateStr = searchParams.get("state");
+  let sub = "";
+  let returnTo = "/onboarding";
+  
+  if (stateStr) {
+    try {
+      const decoded = JSON.parse(Buffer.from(stateStr, "base64").toString("utf-8"));
+      sub = decoded.sub;
+      returnTo = decoded.returnTo || "/onboarding";
+    } catch (e) {
+      sub = stateStr;
+    }
+  }
+
   if (error || !code) {
-    return NextResponse.redirect(
-      new URL("/onboarding?step=3&gmail=error", request.url)
-    );
+    const errUrl = new URL(returnTo, request.url);
+    errUrl.searchParams.set("gmail", "error");
+    return NextResponse.redirect(errUrl);
   }
 
   // Exchange code for tokens
@@ -47,7 +61,7 @@ export async function GET(request: NextRequest) {
   const profile = await profileRes.json() as { email?: string };
 
   const session = await auth0.getSession();
-  if (!session?.user) {
+  if (!session?.user || (sub && session.user.sub !== sub)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -70,13 +84,36 @@ export async function GET(request: NextRequest) {
     }]);
 
   if (dbError) {
-    return NextResponse.redirect(
-      new URL("/onboarding?step=3&gmail=error", request.url)
-    );
+    const errUrl = new URL(returnTo, request.url);
+    errUrl.searchParams.set("gmail", "error");
+    return NextResponse.redirect(errUrl);
   }
 
-  const redirectUrl = new URL("/onboarding", request.url);
-  redirectUrl.searchParams.set("step", "3");
+  // Register Gmail Push Notification watch
+  try {
+    const { registerGmailWatch } = await import("@/lib/gmail-api");
+    const watch = await registerGmailWatch(
+      tokens.access_token,
+      process.env.GMAIL_PUBSUB_TOPIC!
+    );
+
+    await insforge.database
+      .from("gmail_watches")
+      .upsert([{
+        user_id: session.user.sub,
+        history_id: watch.historyId,
+        expiration: watch.expiration,
+        updated_at: new Date().toISOString(),
+      }], { onConflict: "user_id" });
+  } catch (watchErr) {
+    console.error("Failed to register Gmail watch:", watchErr);
+    // Non-fatal — app still works, automations just won't fire in real-time
+  }
+
+  const redirectUrl = new URL(returnTo, request.url);
+  if (returnTo.includes("/onboarding")) {
+    redirectUrl.searchParams.set("step", "3");
+  }
   redirectUrl.searchParams.set("gmail", "connected");
   if (profile.email) redirectUrl.searchParams.set("gmailLabel", profile.email);
 
