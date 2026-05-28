@@ -26,6 +26,10 @@ export async function refreshGmailToken(refreshToken: string): Promise<string> {
       grant_type: "refresh_token",
     }),
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Token refresh HTTP error ${res.status}: ${text}`);
+  }
   const data = await res.json() as { access_token?: string; error?: string };
   if (!data.access_token) throw new Error(`Token refresh failed: ${data.error}`);
   return data.access_token;
@@ -44,6 +48,10 @@ export async function fetchGmailMessage(accessToken: string, messageId: string):
     `https://gmail.googleapis.com/gmail/v1/users/me/messages/${messageId}?format=full`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Gmail message fetch error ${res.status}: ${text}`);
+  }
   const msg = await res.json() as {
     id: string;
     threadId: string;
@@ -79,6 +87,10 @@ export async function fetchGmailHistory(
     `https://gmail.googleapis.com/gmail/v1/users/me/history?startHistoryId=${startHistoryId}&historyTypes=messageAdded`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Gmail history fetch error ${res.status}: ${text}`);
+  }
   const data = await res.json() as {
     history?: { messagesAdded?: { message: { id: string } }[] }[];
     historyId?: string;
@@ -112,7 +124,7 @@ export async function sendGmailReply(
 
   const encoded = Buffer.from(rawMessage).toString("base64url");
 
-  await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
+  const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -120,6 +132,10 @@ export async function sendGmailReply(
     },
     body: JSON.stringify({ raw: encoded, threadId }),
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Gmail send error ${res.status}: ${text}`);
+  }
 }
 
 export async function registerGmailWatch(
