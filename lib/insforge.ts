@@ -76,3 +76,43 @@ export interface TodayData {
   messages: Record<string, ThreadMessage[]>; // keyed by conversation_id
 }
 
+export type AutomationMode = "agentic" | "supervised";
+export type AutomationTone = "professional" | "casual" | "friendly";
+export type AutomationRunStatus = "pending" | "sent" | "held_for_review" | "failed";
+
+export interface AutomationConfig {
+  id: string;
+  user_id: string;
+  automation_key: string;
+  mode: AutomationMode;
+  trigger_params: Record<string, unknown>;
+  ai_prompt: string;
+  tone: AutomationTone;
+  gmail_filter: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AutomationRun {
+  id: string;
+  user_id: string;
+  automation_key: string;
+  status: AutomationRunStatus;
+  trigger_email_id: string | null;
+  trigger_email_subject: string | null;
+  trigger_email_from: string | null;
+  ai_output: string | null;
+  sent_at: string | null;
+  error_message: string | null;
+  created_at: string;
+}
+
+export interface GmailWatch {
+  id: string;
+  user_id: string;
+  history_id: string | null;
+  expiration: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
