@@ -1,0 +1,243 @@
+
+> vibeops@0.1.0 lint
+> eslint
+
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/ai/process/route.ts
+  8:13  warning  'userId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/auth/[auth0]/route.ts
+   5:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  10:28  error  A `require()` style import is forbidden   @typescript-eslint/no-require-imports
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/dashboard/automations/route.ts
+  18:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  49:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/dashboard/clients/route.ts
+  21:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/dashboard/followups/route.ts
+  24:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/dashboard/inbox/route.ts
+   30:46  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+   46:9   error  'gmailItems' is never reassigned. Use 'const' instead  prefer-const
+   46:21  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+   75:48  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+   76:45  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+   77:48  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  109:17  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/dashboard/leads/route.ts
+  21:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/integrations/gmail/disconnect/route.ts
+   5:28  warning  'request' is defined but never used       @typescript-eslint/no-unused-vars
+  27:17  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/app/api/integrations/gmail/sync/route.ts
+   4:28  warning  'request' is defined but never used       @typescript-eslint/no-unused-vars
+  53:59  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  65:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/app/layout.tsx
+  19:9  warning  Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+
+/Users/aleenajaison/Documents/web/vibeops/app/login/page.tsx
+   5:10  warning  'Sparkles' is defined but never used                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  42:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  95:18  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+
+/Users/aleenajaison/Documents/web/vibeops/app/onboarding/page.tsx
+  40:10  warning  'isSaving' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/aleenajaison/Documents/web/vibeops/app/signup/page.tsx
+   5:10  warning  'Sparkles' is defined but never used                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  42:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/components/DotGrid.tsx
+    8:35  error    Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+   10:26  error    Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+   10:40  error    Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+  183:7   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard.tsx
+   81:50  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  143:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  239:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/automations.tsx
+  21:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  29:40  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/clients.tsx
+  16:42  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  17:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  24:47  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/followups.tsx
+   3:10   warning  'Clock' is defined but never used                                      @typescript-eslint/no-unused-vars
+  17:46   error    Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+  19:10   warning  'loading' is assigned a value but never used                           @typescript-eslint/no-unused-vars
+  26:49   error    Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+  36:45   error    Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+  36:69   error    Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+  66:108  warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/inbox.tsx
+  24:42  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  25:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  32:47  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/leads.tsx
+   4:10  warning  'TrendingUp' is defined but never used        @typescript-eslint/no-unused-vars
+  16:38  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  17:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  24:45  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/settings.tsx
+   58:39  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   76:74  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  103:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  161:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/today.tsx
+    4:3   warning  'AlertTriangle' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+   15:3   warning  'Sparkles' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   16:3   warning  'Zap' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+   17:3   warning  'TrendingUp' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   19:3   warning  'Tag' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+   20:3   warning  'ChevronRight' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   22:3   warning  'Briefcase' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  442:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @next/next/no-img-element
+  501:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @next/next/no-img-element
+  713:3   warning  'userPicture' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  747:56  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard/today.tsx:747:56
+  745 |
+  746 |   useEffect(() => {
+> 747 |     if (!localStorage.getItem(getBriefDismissedKey())) setShowBrief(true);
+      |                                                        ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  748 |   }, []);
+  749 |
+  750 |   useEffect(() => {  react-hooks/set-state-in-effect
+  757:5   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/features.tsx
+    7:16   warning  'CardContent' is defined but never used                          @typescript-eslint/no-unused-vars
+   95:41   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  162:23   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  162:117  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  178:106  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  178:135  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/footer.tsx
+   61:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  127:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  131:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  135:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  139:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/header.tsx
+  59:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/how-it-works.tsx
+  125:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  168:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/video-demo.tsx
+   32:7    error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/video-demo.tsx:32:7
+  30 |   useEffect(() => {
+  31 |     if (videoStep === 2 && isVideoPlaying) {
+> 32 |       setTypingText("");
+     |       ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  33 |       const fullText = "That request is useful, but it is outside the scope we agreed for this phase. I can keep our launch date on track as planned, or price this as an add-on after we launch.";
+  34 |       let index = 0;
+  35 |       const timer = setInterval(() => {  react-hooks/set-state-in-effect
+  125:23   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+  125:113  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+  186:23   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+  186:36   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/onboarding.tsx
+  364:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  374:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  384:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  394:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/components/vibeops/top-bar.tsx
+  3:10  warning  'Button' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  5:26  warning  'onDashboard' is defined but never used                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  9:9   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/aleenajaison/Documents/web/vibeops/lib/auth.tsx
+  41:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/aleenajaison/Documents/web/vibeops/lib/auth.tsx:41:9
+  39 |     if (storedUser) {
+  40 |       try {
+> 41 |         setUser(JSON.parse(storedUser));
+     |         ^^^^^^^ Avoid calling setState() directly within an effect
+  42 |       } catch {
+  43 |         localStorage.removeItem("vibeops_user");
+  44 |       }  react-hooks/set-state-in-effect
+
+/Users/aleenajaison/Documents/web/vibeops/lib/dashboard-data.ts
+  51:7  error  'messages' is never reassigned. Use 'const' instead  prefer-const
+
+/Users/aleenajaison/Documents/web/vibeops/types/three.d.ts
+   2:23  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   3:23  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   5:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   6:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   8:36  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   9:36  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  11:22  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  12:20  warning  'T' is defined but never used             @typescript-eslint/no-unused-vars
+  12:24  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  12:29  warning  'U' is defined but never used             @typescript-eslint/no-unused-vars
+  12:33  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  12:40  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:25  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  15:25  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  17:29  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  18:29  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  20:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  21:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  23:30  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  24:37  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  25:28  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  26:27  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  27:28  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  29:32  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  30:32  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  32:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  35:25  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:25  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 126 problems (75 errors, 51 warnings)
+  2 errors and 1 warning potentially fixable with the `--fix` option.
+

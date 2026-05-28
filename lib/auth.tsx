@@ -87,6 +87,8 @@ function Auth0Wrapper({ children }: { children: ReactNode }) {
     if (isSignup) {
       params.set("screen_hint", "signup");
       params.set("returnTo", "/onboarding");
+    } else {
+      params.set("returnTo", "/dashboard");
     }
     if (connection) {
       params.set("connection", connection);

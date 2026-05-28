@@ -476,10 +476,12 @@ function DetailSlideOverPanel({
   activity,
   threadMessages,
   onClose,
+  onAction,
 }: {
   activity: Activity | null;
   threadMessages: ThreadMessage[];
   onClose: () => void;
+  onAction: (actionType: string, activityId: string) => void;
 }) {
   if (!activity) return null;
   const cfg = statusConfig[activity.status];
@@ -596,19 +598,19 @@ function DetailSlideOverPanel({
         <div className="border-t border-border bg-background p-4 flex gap-3 shadow-[0_-4px_16px_rgba(0,0,0,0.02)]">
           {activity.status === "pending" && (
             <>
-              <Button className="flex-1 gap-2 rounded-xl h-10"><Send className="size-3.5" /> Approve &amp; Send</Button>
-              <Button variant="outline" className="flex-1 rounded-xl h-10 border-border bg-background hover:bg-muted">Edit Draft</Button>
+              <Button onClick={() => onAction("approve_draft", activity.id)} className="flex-1 gap-2 rounded-xl h-10"><Send className="size-3.5" /> Approve &amp; Send</Button>
+              <Button onClick={() => onAction("edit_draft", activity.id)} variant="outline" className="flex-1 rounded-xl h-10 border-border bg-background hover:bg-muted">Edit Draft</Button>
             </>
           )}
           {activity.status === "needs-call" && (
             <>
-              <Button className="flex-1 gap-2 rounded-xl h-10"><MessageSquare className="size-3.5" /> Review &amp; Reply</Button>
-              <Button variant="outline" className="flex-1 rounded-xl h-10 border-border bg-background hover:bg-muted">Dismiss Alert</Button>
+              <Button onClick={() => onAction("review_reply", activity.id)} className="flex-1 gap-2 rounded-xl h-10"><MessageSquare className="size-3.5" /> Review &amp; Reply</Button>
+              <Button onClick={() => onAction("dismiss_alert", activity.id)} variant="outline" className="flex-1 rounded-xl h-10 border-border bg-background hover:bg-muted">Dismiss Alert</Button>
             </>
           )}
           {activity.status === "sent" && (
             <>
-              <Button variant="outline" className="flex-1 gap-2 rounded-xl h-10 border-border bg-background hover:bg-muted"><MessageSquare className="size-3.5" /> Send Follow-up</Button>
+              <Button onClick={() => onAction("send_followup", activity.id)} variant="outline" className="flex-1 gap-2 rounded-xl h-10 border-border bg-background hover:bg-muted"><MessageSquare className="size-3.5" /> Send Follow-up</Button>
             </>
           )}
         </div>
@@ -770,12 +772,43 @@ export function TodayView({
     setTimeout(() => setHighlightId(null), 2500);
   }
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleAction(actionType: string, activityId: string) {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    
+    // Optimistic UI updates
+    if (actionType === "approve_draft") {
+      setActivities((prev) => prev.map((a) => a.id === activityId ? { ...a, status: "sent" } : a));
+      setQueueItems((prev) => prev.filter((q) => q.activity_id !== activityId));
+      setSelectedActivityId(null);
+    } else if (actionType === "dismiss_alert") {
+      setQueueItems((prev) => prev.filter((q) => q.activity_id !== activityId));
+      setSelectedActivityId(null);
+    }
+    
+    try {
+      await fetch("/api/dashboard/actions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ actionType, activityId }),
+      });
+    } catch (e) {
+      console.error(e);
+      // Ideally revert optimistic updates here on failure
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <>
       <DetailSlideOverPanel
         activity={activeActivity}
         threadMessages={activeActivity?.conversation_id ? (messages[activeActivity.conversation_id] ?? []) : []}
         onClose={() => setSelectedActivityId(null)}
+        onAction={handleAction}
       />
       {showBrief && (
         <MorningBrief

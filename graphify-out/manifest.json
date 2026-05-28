@@ -1,0 +1,262 @@
+{
+  "/Users/aleenajaison/Documents/web/vibeops/postcss.config.mjs": {
+    "mtime": 1779911969.7053092,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/package.json": {
+    "mtime": 1779948724.6653519,
+    "ast_hash": "aef063f44d629a2d2332bf013ecc5364",
+    "semantic_hash": "aef063f44d629a2d2332bf013ecc5364"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/proxy.ts": {
+    "mtime": 1779948982.1296997,
+    "ast_hash": "496ba847e82d6eaa3ce178fd338f5aa8",
+    "semantic_hash": "496ba847e82d6eaa3ce178fd338f5aa8"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components.json": {
+    "mtime": 1779912559.1419535,
+    "ast_hash": "a0238eb4ceb9341a82b6e3640ca96743",
+    "semantic_hash": "a0238eb4ceb9341a82b6e3640ca96743"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/tsconfig.json": {
+    "mtime": 1779911969.706775,
+    "ast_hash": "02fc19ad21338c2ab820a70136310db4",
+    "semantic_hash": "02fc19ad21338c2ab820a70136310db4"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/eslint.config.mjs": {
+    "mtime": 1779911969.7045565,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/next.config.ts": {
+    "mtime": 1779937768.653927,
+    "ast_hash": "e61b354c9aba9f773acda9c654cd47c4",
+    "semantic_hash": "e61b354c9aba9f773acda9c654cd47c4"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/layout.tsx": {
+    "mtime": 1779948716.9785762,
+    "ast_hash": "d05ee3f46acc8f1db0539ef98f73098e",
+    "semantic_hash": "d05ee3f46acc8f1db0539ef98f73098e"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/page.tsx": {
+    "mtime": 1779944955.1831496,
+    "ast_hash": "8bbc44d572a69a192d62ca19da847269",
+    "semantic_hash": "8bbc44d572a69a192d62ca19da847269"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/signup/page.tsx": {
+    "mtime": 1779948739.701773,
+    "ast_hash": "48cf4d531a9ac8e7b1f52215c82358e1",
+    "semantic_hash": "48cf4d531a9ac8e7b1f52215c82358e1"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/dashboard/page.tsx": {
+    "mtime": 1779936341.6515481,
+    "ast_hash": "15d37b2e3e99b3e6606a0a025db62b88",
+    "semantic_hash": "15d37b2e3e99b3e6606a0a025db62b88"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/api/auth/%5Bauth0%5D/route.ts": {
+    "mtime": 1779948846.9019685,
+    "ast_hash": "9448b13b450738d7980f7e6113b0f9ca",
+    "semantic_hash": "9448b13b450738d7980f7e6113b0f9ca"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/pricing/page.tsx": {
+    "mtime": 1779936334.216073,
+    "ast_hash": "da3095e4b4b135f51b125c5fcd3cb844",
+    "semantic_hash": "da3095e4b4b135f51b125c5fcd3cb844"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/login/page.tsx": {
+    "mtime": 1779948750.1228735,
+    "ast_hash": "ba450536d6524493e3b290d04427fb29",
+    "semantic_hash": "ba450536d6524493e3b290d04427fb29"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/app/onboarding/page.tsx": {
+    "mtime": 1779936329.9709578,
+    "ast_hash": "4f74d564a1607cabda44e6e77b855b01",
+    "semantic_hash": "4f74d564a1607cabda44e6e77b855b01"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/tabs.tsx": {
+    "mtime": 1779912610.6598923,
+    "ast_hash": "485d47f9e6f866e564685e6584e1e747",
+    "semantic_hash": "485d47f9e6f866e564685e6584e1e747"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/card.tsx": {
+    "mtime": 1779912610.426555,
+    "ast_hash": "77a10bd948ca424972a28e704a3df604",
+    "semantic_hash": "77a10bd948ca424972a28e704a3df604"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/progress.tsx": {
+    "mtime": 1779912610.6850898,
+    "ast_hash": "656a678d379ff2132dd1855b2359cc1c",
+    "semantic_hash": "656a678d379ff2132dd1855b2359cc1c"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/dialog.tsx": {
+    "mtime": 1779912610.78297,
+    "ast_hash": "e01132db6e9067b7b8cc2e322fdd34ff",
+    "semantic_hash": "e01132db6e9067b7b8cc2e322fdd34ff"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/badge.tsx": {
+    "mtime": 1779912610.632943,
+    "ast_hash": "633c33997e6137921ae433dd2dd0cb31",
+    "semantic_hash": "633c33997e6137921ae433dd2dd0cb31"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/separator.tsx": {
+    "mtime": 1779912610.714895,
+    "ast_hash": "f57449eae78fbd87d99e4edc45ab3c1e",
+    "semantic_hash": "f57449eae78fbd87d99e4edc45ab3c1e"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/button.tsx": {
+    "mtime": 1779945903.0540202,
+    "ast_hash": "98ef854e31d1ee0188e120ed5a25ad45",
+    "semantic_hash": "98ef854e31d1ee0188e120ed5a25ad45"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/checkbox.tsx": {
+    "mtime": 1779912610.6001534,
+    "ast_hash": "09073231ed001b522fd23911b54ae2f5",
+    "semantic_hash": "09073231ed001b522fd23911b54ae2f5"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/select.tsx": {
+    "mtime": 1779912610.571422,
+    "ast_hash": "611b5699ced6aad54c9a0e8cb865da7f",
+    "semantic_hash": "611b5699ced6aad54c9a0e8cb865da7f"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/textarea.tsx": {
+    "mtime": 1779912610.5077167,
+    "ast_hash": "d448d2a90e48542e51b93a1189127bf2",
+    "semantic_hash": "d448d2a90e48542e51b93a1189127bf2"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/ui/input.tsx": {
+    "mtime": 1779912610.4789135,
+    "ast_hash": "2b0e9e810580f227dd255d9b78a83835",
+    "semantic_hash": "2b0e9e810580f227dd255d9b78a83835"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/pricing.tsx": {
+    "mtime": 1779913666.3045342,
+    "ast_hash": "c3b4642fb810bdf6e4ab7e409fa3f774",
+    "semantic_hash": "c3b4642fb810bdf6e4ab7e409fa3f774"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/dashboard.tsx": {
+    "mtime": 1779945614.9920924,
+    "ast_hash": "39a787761ace86df255dfe81955de0dd",
+    "semantic_hash": "39a787761ace86df255dfe81955de0dd"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/types.ts": {
+    "mtime": 1779913539.076709,
+    "ast_hash": "48b14b72f66c1cb9b27c7e512629aef7",
+    "semantic_hash": "48b14b72f66c1cb9b27c7e512629aef7"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/onboarding.tsx": {
+    "mtime": 1779936315.8199797,
+    "ast_hash": "bfa3a597b367f5645f35d8681761fedd",
+    "semantic_hash": "bfa3a597b367f5645f35d8681761fedd"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing.tsx": {
+    "mtime": 1779945342.5563598,
+    "ast_hash": "7887804b3e5beaf1bc7ce3c8cf4ad935",
+    "semantic_hash": "7887804b3e5beaf1bc7ce3c8cf4ad935"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/top-bar.tsx": {
+    "mtime": 1779945566.3821075,
+    "ast_hash": "d904dc72d12e311388fcff88c2ddca34",
+    "semantic_hash": "d904dc72d12e311388fcff88c2ddca34"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/mock-data.ts": {
+    "mtime": 1779913539.3244224,
+    "ast_hash": "3d5952975398221a3f65450e8c5cc181",
+    "semantic_hash": "3d5952975398221a3f65450e8c5cc181"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/hero.tsx": {
+    "mtime": 1779947893.5876563,
+    "ast_hash": "918dc6787eea98fa6a7c72a558556b73",
+    "semantic_hash": "918dc6787eea98fa6a7c72a558556b73"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/features.tsx": {
+    "mtime": 1779947841.2243884,
+    "ast_hash": "02c641e135ae6e466f90b23c7c4b5478",
+    "semantic_hash": "02c641e135ae6e466f90b23c7c4b5478"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/video-demo.tsx": {
+    "mtime": 1779947699.9463537,
+    "ast_hash": "69d65fa46cebacacfe3dc5bc38fab08c",
+    "semantic_hash": "69d65fa46cebacacfe3dc5bc38fab08c"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/footer.tsx": {
+    "mtime": 1779947757.6008377,
+    "ast_hash": "65a5280a0e4092c0ea673f61eadec33a",
+    "semantic_hash": "65a5280a0e4092c0ea673f61eadec33a"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/how-it-works.tsx": {
+    "mtime": 1779948052.8790846,
+    "ast_hash": "a544e5634bee44f9357b851dadd3be96",
+    "semantic_hash": "a544e5634bee44f9357b851dadd3be96"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/components/vibeops/landing/header.tsx": {
+    "mtime": 1779948810.504261,
+    "ast_hash": "dd3dc1369e831f3c90dd7d2879027d28",
+    "semantic_hash": "dd3dc1369e831f3c90dd7d2879027d28"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/lib/auth0.ts": {
+    "mtime": 1779948977.6091602,
+    "ast_hash": "372ff2242b59d2940abd49b92e4e0f8b",
+    "semantic_hash": "372ff2242b59d2940abd49b92e4e0f8b"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/lib/auth.tsx": {
+    "mtime": 1779948993.7110581,
+    "ast_hash": "5f916c9d85312469cd2302afc5649518",
+    "semantic_hash": "5f916c9d85312469cd2302afc5649518"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/lib/utils.ts": {
+    "mtime": 1779912584.326115,
+    "ast_hash": "5a6fd53fdcf2be529e9cc0b718fde352",
+    "semantic_hash": "5a6fd53fdcf2be529e9cc0b718fde352"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/README.md": {
+    "mtime": 1779911969.7045493,
+    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "semantic_hash": "f15aaa42d5d299d091b1171097ea56ad"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/AGENTS.md": {
+    "mtime": 1779912015.1786702,
+    "ast_hash": "9e09241799026ac05be315a2f0b50055",
+    "semantic_hash": "9e09241799026ac05be315a2f0b50055"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/CLAUDE.md": {
+    "mtime": 1779912015.1787705,
+    "ast_hash": "5c27369b226fcf2be8a6cfe52224e767",
+    "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/public/whatsapp-icon.svg": {
+    "mtime": 1779944592.6705344,
+    "ast_hash": "822dd3f4b4ef011e6b82d5350382b7ad",
+    "semantic_hash": "822dd3f4b4ef011e6b82d5350382b7ad"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/public/gmail.svg": {
+    "mtime": 1779944592.678438,
+    "ast_hash": "641be539d2aab3751239b4b9fbd22480",
+    "semantic_hash": "641be539d2aab3751239b4b9fbd22480"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/public/notion.svg": {
+    "mtime": 1779944592.6927905,
+    "ast_hash": "5d8d0050198bd6d244cbc9f7e4d95d07",
+    "semantic_hash": "5d8d0050198bd6d244cbc9f7e4d95d07"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/public/product-logo.svg": {
+    "mtime": 1779945514.2581558,
+    "ast_hash": "26cca00102d4431ec66b6d035885c145",
+    "semantic_hash": "26cca00102d4431ec66b6d035885c145"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/public/instagram-icon.svg": {
+    "mtime": 1779944592.6750462,
+    "ast_hash": "973f23f209b66f48e237476957c9ea05",
+    "semantic_hash": "973f23f209b66f48e237476957c9ea05"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/public/microsoft-outlook.svg": {
+    "mtime": 1779944592.6884034,
+    "ast_hash": "06e00372083f584db8baa2bba9c2ef29",
+    "semantic_hash": "06e00372083f584db8baa2bba9c2ef29"
+  },
+  "/Users/aleenajaison/Documents/web/vibeops/public/macbook-mockup.png": {
+    "mtime": 1779947543.5635881,
+    "ast_hash": "81624ff904309a312510a046bf5e17e4",
+    "semantic_hash": "81624ff904309a312510a046bf5e17e4"
+  }
+}

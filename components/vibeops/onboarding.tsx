@@ -8,10 +8,23 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import {
-  problemOptions,
-  workflows,
-} from "./mock-data";
+export const problemOptions = [
+  "Starting conversations with new leads",
+  "Discussing price",
+  "Following up without sounding desperate",
+  "Saying no to scope creep",
+  "Giving project delays professionally",
+  "Asking for content/assets",
+  "Handling impatient clients",
+  "Managing WhatsApp/email overload",
+];
+
+export const workflows = [
+  "Pricing reply assistant",
+  "Follow-up assistant",
+  "Scope creep detector",
+  "Client update generator",
+];
 
 export const onboardingSteps = [
   "Problem discovery",
@@ -38,8 +51,6 @@ export type OnboardingProps = {
   onNext: () => void;
   gmailConnected?: boolean;
   gmailLabel?: string;
-  xConnected?: boolean;
-  xLabel?: string;
 };
 
 export function OnboardingFlow(props: OnboardingProps) {
@@ -67,8 +78,6 @@ export function OnboardingFlow(props: OnboardingProps) {
             <IntegrationStep
               gmailConnected={props.gmailConnected ?? false}
               gmailLabel={props.gmailLabel}
-              xConnected={props.xConnected ?? false}
-              xLabel={props.xLabel}
             />
           )}
           {props.step === 4 && (
@@ -345,13 +354,9 @@ function AssessmentBlock({
 function IntegrationStep({
   gmailConnected,
   gmailLabel,
-  xConnected,
-  xLabel,
 }: {
   gmailConnected: boolean;
   gmailLabel?: string;
-  xConnected: boolean;
-  xLabel?: string;
 }) {
   const channels = [
     {
@@ -363,20 +368,6 @@ function IntegrationStep({
       connected: gmailConnected,
       label: gmailLabel,
       href: "/api/integrations/gmail",
-    },
-    {
-      key: "x",
-      icon: () => (
-        <svg className="size-4 fill-current text-zinc-800" viewBox="0 0 24 24">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-        </svg>
-      ),
-      title: "X (Twitter)",
-      body: "Monitor and reply to DMs and mentions from clients.",
-      live: true,
-      connected: xConnected,
-      label: xLabel,
-      href: "/api/integrations/x",
     },
     {
       key: "whatsapp",
@@ -416,7 +407,7 @@ function IntegrationStep({
         Connect your client channels
       </h3>
       <p className="mt-2 max-w-2xl text-muted-foreground">
-        Connect Gmail and X now. More channels are coming soon.
+        Connect Gmail now. More channels are coming soon.
       </p>
       <div className="mt-7 grid gap-3">
         {channels.map((ch) => (
@@ -445,7 +436,7 @@ function IntegrationStep({
                 <a href={ch.href}>
                   <button
                     type="button"
-                    className="h-9 px-4 rounded-lg border border-zinc-300 bg-white hover:bg-zinc-50 text-sm font-semibold text-zinc-700 transition-colors cursor-pointer"
+                    className="h-9 px-4 rounded-lg border border-border bg-card hover:bg-muted text-sm font-semibold text-foreground transition-colors cursor-pointer"
                   >
                     Connect
                   </button>

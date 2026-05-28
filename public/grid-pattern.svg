@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <pattern id="smallGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(99,102,241,0.18)" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="grid" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="url(#smallGrid)"/>
+      <path d="M 200 0 L 0 0 0 200" fill="none" stroke="rgba(99,102,241,0.3)" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="transparent"/>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+</svg>

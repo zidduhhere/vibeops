@@ -1,17 +1,27 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth";
 import { OnboardingFlow, onboardingSteps } from "@/components/vibeops/onboarding";
 import { TopBar } from "@/components/vibeops/top-bar";
-import {
-  samplePracticeReply,
-  sampleTranscript,
-} from "@/components/vibeops/mock-data";
+const sampleTranscript =
+  "I keep things friendly but I don’t want to sound too casual. I struggle when clients ask for price too early, and I sometimes delay follow-ups because I don’t know how to phrase them.";
+
+const samplePracticeReply =
+  "Yes, I can help with that. Before I give a price, can you tell me what kind of business it is, how many pages you need, whether you already have content, and when you want to launch?";
 
 function OnboardingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { user, isLoading } = useAuth();
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.replace("/login");
+    }
+  }, [user, isLoading, router]);
+
   const step = Math.max(
     0,
     Math.min(
@@ -32,9 +42,6 @@ function OnboardingContent() {
   // Read integration connection status from URL params
   const gmailConnected = searchParams.get("gmail") === "connected";
   const gmailLabel = searchParams.get("gmailLabel") ?? undefined;
-  const xConnected = searchParams.get("x") === "connected";
-  const xLabel = searchParams.get("xLabel") ?? undefined;
-
   function toggleProblem(problem: string) {
     setSelectedProblems((current) =>
       current.includes(problem)
@@ -72,7 +79,7 @@ function OnboardingContent() {
       } finally {
         setIsSaving(false);
       }
-      router.push("/pricing");
+      router.push("/dashboard");
     } else {
       const params = new URLSearchParams(searchParams.toString());
       params.set("step", String(step + 1));
@@ -90,8 +97,6 @@ function OnboardingContent() {
       showAssessment={showAssessment}
       gmailConnected={gmailConnected}
       gmailLabel={gmailLabel}
-      xConnected={xConnected}
-      xLabel={xLabel}
       onToggleProblem={toggleProblem}
       onTranscript={setTranscript}
       onSampleTranscript={() => setTranscript(sampleTranscript)}

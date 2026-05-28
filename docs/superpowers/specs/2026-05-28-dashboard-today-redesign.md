@@ -41,20 +41,23 @@
 ## Section 1 — Morning Brief Overlay
 
 **Behaviour:**
-- Renders as a full-screen overlay on top of the dashboard on first load of the day
+
+- Renders as a chat overlay from the ai on top of the dashboard on first load of the day
 - White background, black text — clean, high contrast
 - Dismissed state stored in `localStorage` with a date key (`vibeops_brief_dismissed_YYYY-MM-DD`) — reappears each new day
 - Clicking a chip scrolls to and highlights the corresponding item in the queue below after dismissal
 - Clicking "Dismiss" or pressing Escape closes the overlay
 
 **Layout:**
-- Centered card, max-width `560px`, rounded-2xl, shadow-2xl
+
+- Centered card, max-width `480px`, rounded-xl, shadow-2xl
 - Top: greeting line — `"Good morning, [firstName]."` (time-aware: morning/afternoon/evening)
 - Middle: one AI-written summary sentence describing the day in plain English
 - Bottom: up to 3 action chips in primary color, each showing `client name · what to do`
 - Bottom-right: `"Get started →"` button (dismisses + scrolls to queue)
 
 **Chip content (derived from queue data):**
+
 1. First "Your call needed" item (if any)
 2. First "Ready to send" item (if any)
 3. First "Reach out today" item (if any)
@@ -64,6 +67,7 @@
 ## Section 2 — Sparkline Stats Row
 
 5 stat cards in a horizontal row, each containing:
+
 - **Big bold number** (foreground color)
 - **Label** (muted, small)
 - **7-point sparkline** — pure SVG path, no chart library, uses the last 7 days of mock data
@@ -85,6 +89,7 @@
 **Header:** "AI Activity" + filter tabs: `All` · `Sent` · `Pending` · `Flagged`
 
 **Each row:**
+
 - Channel icon (Gmail SVG, WhatsApp SVG, etc.) in a rounded icon box
 - Client name (bold) + summary of what AI did (muted)
 - Time (right-aligned, muted)
@@ -98,6 +103,7 @@
 | Flagged | Needs your call |
 
 **Expanded state (click row):**
+
 - Inline preview block showing the client's original message + AI's draft
 - For "Pending approval": `Approve & Send` (primary) + `Edit` (outline) buttons
 - For "Needs your call": `Review` (primary) + `Ignore` (ghost) buttons
@@ -111,23 +117,27 @@
 **Groups (in order, plain-language headers):**
 
 ### 🔴 Decisions needed
+
 - Red left border on each card
 - Header chip: `"2 decisions needed"`
 - Each item: client name + one-line description of what the AI stopped on + `Review` button
 - Meaning: AI held a reply and needs a human to decide
 
 ### 🟡 Ready to send
+
 - Amber left border
 - Header chip: `"3 replies ready to send"`
 - Each item: client name + subject line + `Send` button + `Edit` link
 - Meaning: AI drafted a reply, waiting for one-tap approval
 
 ### 🔵 Reach out today
+
 - Blue left border
 - Header chip: `"1 person to reach out today"`
 - Each item: client name + why (e.g. "Proposal sent 3 days ago — no reply") + `Draft reply` button
 
 ### ⚪ Coming up
+
 - Muted border, visually quiet
 - Header chip: `"2 coming up this week"`
 - Each item: client name + due date + action
@@ -145,8 +155,8 @@ All data is mock for now. The structure is designed so that real data from InsFo
 
 ## Files
 
-| File | Change |
-|------|--------|
+| File                                     | Change                                                                         |
+| ---------------------------------------- | ------------------------------------------------------------------------------ |
 | `components/vibeops/dashboard/today.tsx` | Full rewrite — morning brief overlay + sparkline stats + activity feed + queue |
 
 No other files need to change. The overlay, stats, feed, and queue are all self-contained within `today.tsx`.
