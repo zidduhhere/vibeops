@@ -17,8 +17,8 @@ ALTER TABLE public.automation_configs ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Users manage their own automation configs"
   ON public.automation_configs FOR ALL
-  USING (user_id = auth.uid()::text)
-  WITH CHECK (user_id = auth.uid()::text);
+  USING (user_id = requesting_user_id())
+  WITH CHECK (user_id = requesting_user_id());
 
 -- automation_runs: execution log
 CREATE TABLE IF NOT EXISTS public.automation_runs (
@@ -39,8 +39,8 @@ ALTER TABLE public.automation_runs ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Users read their own automation runs"
   ON public.automation_runs FOR ALL
-  USING (user_id = auth.uid()::text)
-  WITH CHECK (user_id = auth.uid()::text);
+  USING (user_id = requesting_user_id())
+  WITH CHECK (user_id = requesting_user_id());
 
 -- gmail_watches: track active Gmail push subscriptions per user
 CREATE TABLE IF NOT EXISTS public.gmail_watches (
@@ -57,5 +57,18 @@ ALTER TABLE public.gmail_watches ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Users manage their own gmail watches"
   ON public.gmail_watches FOR ALL
-  USING (user_id = auth.uid()::text)
-  WITH CHECK (user_id = auth.uid()::text);
+  USING (user_id = requesting_user_id())
+  WITH CHECK (user_id = requesting_user_id());
+
+-- Indexes for query performance
+CREATE INDEX IF NOT EXISTS idx_automation_configs_user_id
+  ON public.automation_configs(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_automation_runs_user_id
+  ON public.automation_runs(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_automation_runs_user_automation_key
+  ON public.automation_runs(user_id, automation_key);
+
+CREATE INDEX IF NOT EXISTS idx_automation_runs_created_at
+  ON public.automation_runs(created_at DESC);
