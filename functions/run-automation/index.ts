@@ -3,7 +3,57 @@
 // Calls OpenRouter AI, then sends (agentic) or holds (supervised)
 
 import { createClient } from "@insforge/sdk";
-import { getValidAccessToken, sendGmailReply } from "../../lib/gmail-api";
+
+// Inlined from lib/gmail-api — relative imports don't resolve in function runtime
+async function refreshGmailToken(refreshToken: string): Promise<string> {
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: process.env.GMAIL_CLIENT_ID!,
+      client_secret: process.env.GMAIL_CLIENT_SECRET!,
+      refresh_token: refreshToken,
+      grant_type: "refresh_token",
+    }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Token refresh failed ${res.status}: ${text}`);
+  }
+  const data = await res.json() as { access_token?: string; error?: string };
+  if (!data.access_token) throw new Error(`Token refresh failed: ${data.error}`);
+  return data.access_token;
+}
+
+async function getValidAccessToken(tokens: { access_token: string; refresh_token: string | null; token_expires_at: string | null }): Promise<string> {
+  const expiresAt = tokens.token_expires_at ? new Date(tokens.token_expires_at) : null;
+  const isExpired = !expiresAt || expiresAt.getTime() - Date.now() < 60_000;
+  if (!isExpired) return tokens.access_token;
+  if (!tokens.refresh_token) throw new Error("No refresh token available");
+  return refreshGmailToken(tokens.refresh_token);
+}
+
+async function sendGmailReply(accessToken: string, to: string, subject: string, body: string): Promise<void> {
+  const replySubject = subject.startsWith("Re:") ? subject : `Re: ${subject}`;
+  const rawMessage = [
+    `To: ${to}`,
+    `Subject: ${replySubject}`,
+    "Content-Type: text/plain; charset=utf-8",
+    "MIME-Version: 1.0",
+    "",
+    body,
+  ].join("\r\n");
+  const encoded = Buffer.from(rawMessage).toString("base64url");
+  const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ raw: encoded }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Gmail send error ${res.status}: ${text}`);
+  }
+}
 
 interface EmailData {
   id: string;

@@ -12,6 +12,12 @@ interface PubSubMessage {
 }
 
 export async function POST(req: NextRequest) {
+  // Validate webhook secret to prevent unauthorized triggers
+  const secret = new URL(req.url).searchParams.get("secret");
+  if (secret !== process.env.WEBHOOK_SECRET) {
+    return NextResponse.json({ ok: true }); // ack but ignore — don't leak 401
+  }
+
   try {
     const body = await req.json() as PubSubMessage;
     const decoded = JSON.parse(Buffer.from(body.message.data, "base64").toString("utf-8")) as {

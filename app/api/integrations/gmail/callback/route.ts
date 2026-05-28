@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
       sub = stateStr;
     }
   }
+  if (!returnTo.startsWith("/")) returnTo = "/onboarding";
 
   if (error || !code) {
     const errUrl = new URL(returnTo, request.url);

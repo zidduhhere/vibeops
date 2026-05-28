@@ -58,7 +58,7 @@ export async function POST(req: Request) {
       }]);
 
       if (matches.length > 0) {
-        await db.functions.invoke("run-automation", {
+        const { error: fnErr } = await db.functions.invoke("run-automation", {
           body: {
             user_id: user.id,
             automation_key,
@@ -70,6 +70,7 @@ export async function POST(req: Request) {
             },
           },
         });
+        if (fnErr) return NextResponse.json({ error: String(fnErr) }, { status: 500 });
         return NextResponse.json({ success: true, triggered_for: email.subject });
       }
     }
