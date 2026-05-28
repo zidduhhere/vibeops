@@ -9,7 +9,10 @@ export const auth0 = new Auth0Client({
       );
       const insforgeToken = payload["https://insforge.dev/insforge_token"];
       if (insforgeToken) {
-        session.user["https://insforge.dev/insforge_token"] = insforgeToken;
+        session.user = {
+          ...session.user,
+          "https://insforge.dev/insforge_token": insforgeToken,
+        };
       }
     }
     return session;
