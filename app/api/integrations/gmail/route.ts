@@ -7,6 +7,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
+  const returnTo = request.nextUrl.searchParams.get("returnTo") || "/onboarding";
+  const stateObj = { sub: session.user.sub, returnTo };
+  const stateStr = Buffer.from(JSON.stringify(stateObj)).toString("base64");
+
   const params = new URLSearchParams({
     client_id: process.env.GMAIL_CLIENT_ID!,
     redirect_uri: `${process.env.APP_BASE_URL}/api/integrations/gmail/callback`,
@@ -19,7 +23,7 @@ export async function GET(request: NextRequest) {
     ].join(" "),
     access_type: "offline",
     prompt: "consent",
-    state: session.user.sub,
+    state: stateStr,
   });
 
   return NextResponse.redirect(

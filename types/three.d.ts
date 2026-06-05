@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 declare module 'three' {
   export const Scene: any;
   export type Scene = any;

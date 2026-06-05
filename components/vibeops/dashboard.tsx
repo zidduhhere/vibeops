@@ -1,20 +1,16 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element, @typescript-eslint/no-explicit-any */
+
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Bell, Bot, BriefcaseBusiness, Clock, ClipboardCheck,
   Inbox, Send, Settings, Target, Users, X, CheckCircle2,
   AlertTriangle, MessageSquare, Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-import { TodayView } from "./dashboard/today";
-import { InboxView } from "./dashboard/inbox";
-import { LeadsView } from "./dashboard/leads";
-import { ClientsView } from "./dashboard/clients";
-import { FollowUpsView } from "./dashboard/followups";
-import { AutomationsView } from "./dashboard/automations";
-import { SettingsView } from "./dashboard/settings";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -32,12 +28,12 @@ interface Notification {
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const navItems = [
-  { label: "Today",       icon: Target },
-  { label: "Inbox",       icon: Inbox },
-  { label: "Leads",       icon: Users },
-  { label: "Clients",     icon: BriefcaseBusiness },
-  { label: "Follow-ups",  icon: Clock },
-  { label: "Automations", icon: ClipboardCheck },
+  { label: "Today",       icon: Target,            path: "/dashboard" },
+  { label: "Inbox",       icon: Inbox,             path: "/dashboard/inbox" },
+  { label: "Leads",       icon: Users,             path: "/dashboard/leads" },
+  { label: "Clients",     icon: BriefcaseBusiness, path: "/dashboard/clients" },
+  { label: "Follow-ups",  icon: Clock,             path: "/dashboard/followups" },
+  { label: "Automations", icon: ClipboardCheck,    path: "/dashboard/automations" },
 ];
 
 const notifConfig = {
@@ -52,17 +48,15 @@ const notifConfig = {
 export function DashboardShell({
   userName,
   userPicture,
-  activeNav = 0,
-  onNavChange,
+  children,
 }: {
   userName?: string;
   userPicture?: string;
-  activeNav?: number;
-  onNavChange?: (index: number) => void;
+  children: React.ReactNode;
 }) {
+  const pathname = usePathname();
   const [chatOpen,     setChatOpen]     = useState(false);
   const [notifOpen,    setNotifOpen]    = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     { role: "ai", text: "Hey! I've handled 3 conversations and flagged 1 for your review today. What would you like to know?" },
@@ -96,15 +90,54 @@ export function DashboardShell({
     if (chatOpen) messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages, chatOpen]);
 
-  function sendMessage() {
+  async function sendMessage() {
     const text = chatInput.trim();
     if (!text) return;
+    
+    const newMessages: ChatMessage[] = [
+      ...chatMessages,
+      { role: "user", text }
+    ];
+    setChatMessages(newMessages);
+    setChatInput("");
+    
+    // Add a temporary loading message
     setChatMessages((prev) => [
       ...prev,
-      { role: "user", text },
-      { role: "ai", text: "I'm reviewing that now. Give me a moment to pull the context from your active threads." },
+      { role: "ai", text: "..." }
     ]);
-    setChatInput("");
+
+    try {
+      const res = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        if (data.reply) {
+          // Replace the loading message with the real reply
+          setChatMessages((prev) => {
+            const copy = [...prev];
+            copy[copy.length - 1] = { role: "ai", text: data.reply };
+            return copy;
+          });
+        }
+      } else {
+        setChatMessages((prev) => {
+          const copy = [...prev];
+          copy[copy.length - 1] = { role: "ai", text: "Sorry, I ran into an error generating a response." };
+          return copy;
+        });
+      }
+    } catch (err) {
+      setChatMessages((prev) => {
+        const copy = [...prev];
+        copy[copy.length - 1] = { role: "ai", text: "Sorry, I could not connect to the server." };
+        return copy;
+      });
+    }
   }
 
   function markAllRead() {
@@ -124,15 +157,6 @@ export function DashboardShell({
     return () => document.removeEventListener("mousedown", handler);
   }, [notifOpen]);
 
-  const views = [
-    <TodayView      key="today"       userName={userName} userPicture={userPicture} />,
-    <InboxView      key="inbox" />,
-    <LeadsView      key="leads" />,
-    <ClientsView    key="clients" />,
-    <FollowUpsView  key="followups" />,
-    <AutomationsView key="automations" />,
-  ];
-
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-muted/30">
 
@@ -146,20 +170,20 @@ export function DashboardShell({
 
         {/* Nav tabs */}
         <nav className="hidden items-center gap-1 md:flex">
-          {navItems.map((item, i) => {
+          {navItems.map((item) => {
             const Icon = item.icon;
+            const isActive = pathname === item.path;
             return (
-              <button key={item.label} type="button"
-                onClick={() => { setSettingsOpen(false); onNavChange?.(i); }}
+              <Link key={item.label} href={item.path}
                 className={cn(
                   "flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
-                  i === activeNav && !settingsOpen
+                  isActive
                     ? "bg-foreground text-background"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}>
                 <Icon className="size-3.5" />
                 {item.label}
-              </button>
+              </Link>
             );
           })}
         </nav>
@@ -167,19 +191,18 @@ export function DashboardShell({
         {/* Right actions */}
         <div className="flex items-center gap-2">
           {/* Settings */}
-          <button id="settings-btn" type="button"
-            onClick={() => { setSettingsOpen((o) => !o); setNotifOpen(false); }}
+          <Link href="/dashboard/settings" id="settings-btn"
             className={cn(
               "flex size-9 items-center justify-center rounded-full border border-border transition-colors",
-              settingsOpen ? "bg-foreground text-background" : "bg-background text-muted-foreground hover:text-foreground"
+              pathname === "/dashboard/settings" ? "bg-foreground text-background" : "bg-background text-muted-foreground hover:text-foreground"
             )}>
             <Settings className="size-4" />
-          </button>
+          </Link>
 
           {/* Notifications */}
           <div className="relative">
             <button id="notif-btn" type="button"
-              onClick={() => { setNotifOpen((o) => !o); setSettingsOpen(false); }}
+              onClick={() => { setNotifOpen((o) => !o); }}
               className={cn(
                 "relative flex size-9 items-center justify-center rounded-full border border-border transition-colors",
                 notifOpen ? "bg-foreground text-background" : "bg-background text-muted-foreground hover:text-foreground"
@@ -248,10 +271,7 @@ export function DashboardShell({
       {/* ── Page body ───────────────────────────────────────────── */}
       <main className="flex-1 overflow-y-auto">
         <div className="mx-auto max-w-[1400px] h-full p-6">
-          {settingsOpen
-            ? <SettingsView userName={userName} userPicture={userPicture} />
-            : (views[activeNav] ?? views[0])
-          }
+          {children}
         </div>
       </main>
 

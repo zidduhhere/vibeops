@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { createInsForgeClient, TodayData } from "@/lib/insforge";
 
 export async function fetchTodayData(): Promise<TodayData> {

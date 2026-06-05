@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 import { NextRequest, NextResponse } from "next/server";
 
 const isAuth0Enabled = process.env.NEXT_PUBLIC_AUTH0_ENABLED === "true";

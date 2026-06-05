@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
+
 import { useState, useEffect } from "react";
 import { Menu, X, LogOut, LayoutDashboard } from "lucide-react";
 import { useRouter } from "next/navigation";

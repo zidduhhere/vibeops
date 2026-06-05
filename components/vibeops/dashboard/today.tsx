@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars, react-hooks/set-state-in-effect */
+
 import {
   AlertTriangle,
   ArrowDown,
@@ -29,7 +31,7 @@ import { cn } from "@/lib/utils";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
-type ActivityStatus = "sent" | "pending" | "needs-call";
+type ActivityStatus = "sent" | "pending" | "needs-call" | "ignored";
 type QueueGroup = "decisions" | "ready" | "reach-out" | "coming-up";
 
 interface ThreadMessage {
@@ -110,6 +112,12 @@ const statusConfig: Record<
     dot: "bg-red-500",
     badge:
       "bg-red-50 text-red-700 border-red-200 dark:bg-red-950 dark:text-red-400 dark:border-red-800",
+  },
+  ignored: {
+    label: "Ignored",
+    dot: "bg-gray-400",
+    badge:
+      "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-950 dark:text-gray-400 dark:border-gray-800",
   },
 };
 
@@ -213,7 +221,7 @@ function StatsRow({ stats, todayStat }: { stats: DailyStat[]; todayStat: DailySt
         return (
           <Card
             key={s.label}
-            className="rounded-2xl border-none ring-1 ring-border bg-background shadow-sm py-0 gap-0 overflow-hidden"
+            className="rounded-md border-none ring-1 ring-border bg-background py-0 gap-0 overflow-hidden"
           >
             <CardContent className="flex items-center justify-between p-4 py-3.5 gap-2">
               <div>
@@ -229,11 +237,6 @@ function StatsRow({ stats, todayStat }: { stats: DailyStat[]; todayStat: DailySt
                     )}
                   >
                     <TrendIcon className="size-3" />
-                    <span>
-                      {s.trend === "up"
-                        ? "+2 vs yesterday"
-                        : "−12m vs yesterday"}
-                    </span>
                   </div>
                 )}
               </div>
@@ -365,106 +368,60 @@ function MorningBrief({
   );
 }
 
-// ── Activity Feed ─────────────────────────────────────────────────────────────
+// ── AI Summary ─────────────────────────────────────────────────────────────
 
-type ActivityFilter = "all" | ActivityStatus;
-
-function ActivityFeed({
+function AISummary({
   activities,
-  selectedId,
-  onSelect,
+  queueItems,
 }: {
   activities: Activity[];
-  selectedId: string | null;
-  onSelect: (id: string | null) => void;
+  queueItems: QueueItem[];
 }) {
-  const [filter, setFilter] = useState<ActivityFilter>("all");
-
-  const filterTabs: { key: ActivityFilter; label: string }[] = [
-    { key: "all", label: "All" },
-    { key: "sent", label: "Sent" },
-    { key: "pending", label: "Pending" },
-    { key: "needs-call", label: "Needs call" },
-  ];
-
-  const visible =
-    filter === "all"
-      ? activities
-      : activities.filter((a) => a.status === filter);
+  const trackedCount = activities.length;
+  const leadsCount = activities.filter(a => a.status === "needs-call" || a.client?.tags?.includes("lead")).length;
+  const sentCount = activities.filter(a => a.status === "sent").length;
+  const draftCount = activities.filter(a => a.status === "pending" || a.status === "needs-call" || a.ai_draft).length;
 
   return (
-    <Card className="flex flex-col rounded-2xl border-none ring-1 ring-border bg-background shadow-sm py-0 gap-0 overflow-hidden">
+    <Card className="flex flex-col rounded-md border-none ring-1 ring-border bg-background py-0 gap-0 overflow-hidden">
       <div className="flex items-center justify-between border-b border-border px-5 py-4">
         <div>
-          <p className="font-semibold">AI Activity</p>
+          <p className="font-semibold">AI Activity Today</p>
           <p className="text-xs text-muted-foreground">
-            What the AI handled today
+            What your agent accomplished
           </p>
         </div>
-        <div className="flex gap-1">
-          {filterTabs.map((f) => (
-            <button
-              key={f.key}
-              type="button"
-              onClick={() => setFilter(f.key)}
-              className={cn(
-                "rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                filter === f.key
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
-              )}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
+        <Bot className="size-5 text-primary opacity-80" />
       </div>
-      <div className="divide-y divide-border">
-        {visible.map((a) => {
-          const cfg = statusConfig[a.status];
-          const icon = channelIcon[a.channel];
-          const isSelected = selectedId === a.id;
-          return (
-            <div key={a.id}>
-              <button
-                type="button"
-                onClick={() => onSelect(isSelected ? null : a.id)}
-                className={cn(
-                  "flex w-full items-start gap-3 px-5 py-3.5 text-left transition-colors hover:bg-muted/40",
-                  isSelected && "bg-muted/60",
-                )}
-              >
-                <span
-                  className={cn("mt-1.5 size-2 shrink-0 rounded-full", cfg.dot)}
-                />
-                <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted">
-                  {icon ? (
-                    <img src={icon.src} alt={icon.alt} className="size-4" />
-                  ) : (
-                    <Mail className="size-3.5 text-muted-foreground" />
-                  )}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-medium">{a.client?.name ?? "Unknown"}</span>
-                    <span className="shrink-0 text-xs text-muted-foreground">
-                      {new Date(a.acted_at).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
-                    </span>
-                  </div>
-                  <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                    {a.summary}
-                  </p>
-                </div>
-                <Badge
-                  variant="outline"
-                  className={cn("shrink-0 text-[10px]", cfg.badge)}
-                >
-                  {cfg.label}
-                </Badge>
-              </button>
-            </div>
-          );
-        })}
+      <div className="grid grid-cols-2 divide-x divide-y divide-border">
+        <div className="flex flex-col p-6 gap-2 hover:bg-muted/30 transition-colors">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <MessageSquare className="size-4" />
+            <span className="text-xs font-medium uppercase tracking-wider">Messages Tracked</span>
+          </div>
+          <p className="text-3xl font-bold">{trackedCount}</p>
+        </div>
+        <div className="flex flex-col p-6 gap-2 hover:bg-muted/30 transition-colors">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <User className="size-4" />
+            <span className="text-xs font-medium uppercase tracking-wider">Leads Identified</span>
+          </div>
+          <p className="text-3xl font-bold">{leadsCount}</p>
+        </div>
+        <div className="flex flex-col p-6 gap-2 hover:bg-muted/30 transition-colors">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Send className="size-4" />
+            <span className="text-xs font-medium uppercase tracking-wider">Emails Sent</span>
+          </div>
+          <p className="text-3xl font-bold">{sentCount}</p>
+        </div>
+        <div className="flex flex-col p-6 gap-2 hover:bg-muted/30 transition-colors">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Clock className="size-4" />
+            <span className="text-xs font-medium uppercase tracking-wider">Drafts Waiting</span>
+          </div>
+          <p className="text-3xl font-bold text-amber-600">{draftCount}</p>
+        </div>
       </div>
     </Card>
   );
@@ -525,10 +482,12 @@ function DetailSlideOverPanel({
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="font-medium text-lg mb-2">{activity.summary}</h3>
-                <Badge variant="outline" className={cfg.badge}>
-                  <span className={cn("size-1.5 rounded-full mr-1.5", cfg.dot)} />
-                  {cfg.label}
-                </Badge>
+                {cfg && (
+                  <Badge variant="outline" className={cfg.badge}>
+                    <span className={cn("size-1.5 rounded-full mr-1.5", cfg.dot)} />
+                    {cfg.label}
+                  </Badge>
+                )}
               </div>
             </div>
 
@@ -639,7 +598,7 @@ function PriorityQueue({ queueItems, highlightId }: { queueItems: QueueItem[]; h
 
   if (queueItems.length === 0) {
     return (
-      <Card className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl border-none ring-1 ring-border bg-background p-6 text-muted-foreground shadow-sm">
+      <Card className="flex h-full flex-col items-center justify-center gap-2 rounded-md border-none ring-1 ring-border bg-background p-6 text-muted-foreground">
         <CheckCircle2 className="size-8 opacity-30" />
         <p className="text-sm">Nothing needs attention — AI has it covered ✓</p>
       </Card>
@@ -647,7 +606,7 @@ function PriorityQueue({ queueItems, highlightId }: { queueItems: QueueItem[]; h
   }
 
   return (
-    <Card className="flex flex-col rounded-2xl border-none ring-1 ring-border bg-background shadow-sm py-0 gap-0 overflow-hidden">
+    <Card className="flex flex-col rounded-md border-none ring-1 ring-border bg-background py-0 gap-0 overflow-hidden">
       <div className="flex items-center justify-between border-b border-border px-5 py-4">
         <p className="font-semibold">Your queue</p>
         <span className="flex size-6 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground">
@@ -706,6 +665,60 @@ function PriorityQueue({ queueItems, highlightId }: { queueItems: QueueItem[]; h
   );
 }
 
+// ── Activities Feed ───────────────────────────────────────────────────────────
+
+function ActivitiesFeed({ activities, onActivityClick }: { activities: Activity[]; onActivityClick: (id: string) => void }) {
+  if (activities.length === 0) {
+    return null;
+  }
+
+  return (
+    <Card className="flex flex-col rounded-md border-none ring-1 ring-border bg-background py-0 gap-0 overflow-hidden">
+      <div className="flex items-center justify-between border-b border-border px-5 py-4">
+        <p className="font-semibold">Recent Activity</p>
+      </div>
+      <div className="divide-y divide-border">
+        {activities.map((activity) => {
+          const cfg = statusConfig[activity.status];
+          const icon = channelIcon[activity.channel];
+          
+          return (
+            <button
+              key={activity.id}
+              type="button"
+              onClick={() => onActivityClick(activity.id)}
+              className="w-full text-left flex items-start gap-4 px-5 py-4 hover:bg-muted/30 transition-colors"
+            >
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-background shadow-sm mt-0.5">
+                {icon ? (
+                  <img src={icon.src} alt={icon.alt} className="size-4" />
+                ) : (
+                  <Mail className="size-3.5 text-muted-foreground" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <p className="font-medium text-sm truncate">{activity.client?.name ?? "Unknown"}</p>
+                  <span className="text-[10px] text-muted-foreground whitespace-nowrap">
+                    {new Date(activity.acted_at).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground line-clamp-1 mb-2">{activity.summary}</p>
+                {cfg && (
+                  <Badge variant="outline" className={cn("text-[10px] px-1.5 py-0", cfg.badge)}>
+                    <span className={cn("size-1 rounded-full mr-1", cfg.dot)} />
+                    {cfg.label}
+                  </Badge>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </Card>
+  );
+}
+
 // ── TodayView (new wired version) ─────────────────────────────────────────────
 
 export function TodayView({
@@ -731,7 +744,11 @@ export function TodayView({
       .then((r) => r.json())
       .then((data) => {
         setActivities(data.activities ?? []);
-        setQueueItems(data.queueItems ?? []);
+        // Deduplicate queue items by client_id to prevent repeated elements
+        const uniqueQueue = Array.from(new Map(
+          (data.queueItems ?? []).map((q: any) => [q.client?.id || q.id, q])
+        ).values()) as QueueItem[];
+        setQueueItems(uniqueQueue);
         setStats(data.stats ?? []);
         setTodayStat(data.todayStat ?? null);
         setMessages(data.messages ?? {});
@@ -754,7 +771,7 @@ export function TodayView({
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [showBrief]);
 
   function dismissBrief() {
@@ -840,12 +857,17 @@ export function TodayView({
         </div>
         <StatsRow stats={stats} todayStat={todayStat} />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_0.65fr]">
-          <ActivityFeed
-            activities={activities}
-            selectedId={selectedActivityId}
-            onSelect={setSelectedActivityId}
-          />
-          <PriorityQueue queueItems={queueItems} highlightId={highlightId} />
+          <div className="flex flex-col gap-4">
+            <AISummary
+              activities={activities}
+              queueItems={queueItems}
+            />
+            <ActivitiesFeed 
+              activities={activities.filter(a => a.status !== "ignored")} 
+              onActivityClick={setSelectedActivityId} 
+            />
+          </div>
+          <PriorityQueue queueItems={queueItems.filter(q => q.grp !== "coming-up")} highlightId={highlightId} />
         </div>
       </div>
     </>

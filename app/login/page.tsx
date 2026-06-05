@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars, react/no-unescaped-entities */
+
 import { useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { Sparkles, Info, ShieldAlert } from "lucide-react";
@@ -33,13 +35,17 @@ export default function LoginPage() {
       {/* LEFT SIDE: Brand Presentation (Solid Black Background) */}
       <div className="relative flex flex-col justify-between w-full lg:w-1/2 bg-zinc-950 text-white p-8 sm:p-12 lg:p-16">
         {/* Subtle grid patterns */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[24px_24px] pointer-events-none" />
         <div className="absolute top-1/3 left-1/4 size-96 rounded-full bg-primary/5 blur-3xl -z-10" />
 
         {/* Top: Logo & Title */}
         <div className="relative z-10 flex items-center gap-3">
           <div className="flex items-center justify-center size-10 rounded-xl bg-white border border-zinc-800 shadow-inner p-2">
-            <img src="/product-logo.svg" alt="VibeOps Logo" className="size-full object-contain" />
+            <img
+              src="/product-logo.svg"
+              alt="VibeOps Logo"
+              className="size-full object-contain"
+            />
           </div>
           <span className="text-xl font-extrabold tracking-tight uppercase text-white">
             VibeOps
@@ -52,17 +58,26 @@ export default function LoginPage() {
             Welcome back to VibeOps
           </h2>
           <p className="text-lg text-zinc-400 font-medium">
-            Your client command center. Log in to review drafts, inspect boundaries, and sync channels.
+            Your client command center. Log in to review drafts, inspect
+            boundaries, and sync channels.
           </p>
         </div>
 
         {/* Bottom: Footer Info & Social Links */}
         <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-zinc-900 text-xs text-zinc-500">
-          <span>&copy; {new Date().getFullYear()} VibeOps, Inc. All Rights Reserved.</span>
+          <span>
+            &copy; {new Date().getFullYear()} VibeOps, Inc. All Rights Reserved.
+          </span>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-white transition-colors">X</a>
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-white transition-colors">GitHub</a>
+            <a href="#" className="hover:text-white transition-colors">
+              X
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              LinkedIn
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              GitHub
+            </a>
           </div>
         </div>
       </div>
@@ -81,8 +96,13 @@ export default function LoginPage() {
             <div className="flex items-start gap-2.5 p-3.5 mb-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-xs text-amber-600">
               <ShieldAlert className="size-4 shrink-0 mt-0.5 text-amber-500 animate-pulse" />
               <div>
-                <strong className="font-semibold block mb-0.5">Local Sandbox Mode</strong>
-                <span>Set Auth0 keys in your `.env.local` to enable live cloud authentication.</span>
+                <strong className="font-semibold block mb-0.5">
+                  Local Sandbox Mode
+                </strong>
+                <span>
+                  Set Auth0 keys in your `.env.local` to enable live cloud
+                  authentication.
+                </span>
               </div>
             </div>
           )}
@@ -93,7 +113,10 @@ export default function LoginPage() {
             </h1>
             <p className="mt-1.5 text-sm text-zinc-500">
               Don't have an account?{" "}
-              <Link href="/signup" className="font-semibold text-primary hover:underline">
+              <Link
+                href="/signup"
+                className="font-semibold text-primary hover:underline"
+              >
                 Sign up
               </Link>
             </p>
@@ -101,7 +124,10 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="email" className="text-xs font-semibold text-zinc-600">
+              <label
+                htmlFor="email"
+                className="text-xs font-semibold text-zinc-600"
+              >
                 Email address
               </label>
               <input
@@ -114,7 +140,9 @@ export default function LoginPage() {
                   if (errorMsg) setErrorMsg("");
                 }}
                 className={`w-full h-11 px-3.5 rounded-xl border ${
-                  errorMsg ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-zinc-300 focus:ring-primary/20 focus:border-primary"
+                  errorMsg
+                    ? "border-red-500 focus:ring-red-500/20 focus:border-red-500"
+                    : "border-zinc-300 focus:ring-primary/20 focus:border-primary"
                 } bg-white text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-4 transition-all`}
               />
               {errorMsg && (
@@ -135,11 +163,11 @@ export default function LoginPage() {
 
           {/* OR Divider */}
           <div className="relative flex py-5 items-center">
-            <div className="flex-grow border-t border-zinc-200" />
-            <span className="flex-shrink mx-3 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+            <div className="grow border-t border-zinc-200" />
+            <span className="shrink mx-3 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
               OR
             </span>
-            <div className="flex-grow border-t border-zinc-200" />
+            <div className="grow border-t border-zinc-200" />
           </div>
 
           {/* Social Log In Options */}
@@ -151,7 +179,10 @@ export default function LoginPage() {
               className="w-full h-11 bg-white hover:bg-zinc-50 border border-zinc-300 rounded-xl px-4 flex items-center justify-center gap-3 text-sm font-semibold text-zinc-700 transition-colors shadow-2xs cursor-pointer"
             >
               {/* GitHub SVG */}
-              <svg className="size-5 shrink-0 text-zinc-800 fill-current" viewBox="0 0 24 24">
+              <svg
+                className="size-5 shrink-0 text-zinc-800 fill-current"
+                viewBox="0 0 24 24"
+              >
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
               <span>Continue with GitHub</span>

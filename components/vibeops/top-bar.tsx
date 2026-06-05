@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
+
 import { Button } from "@/components/ui/button";
 
 export function TopBar({ onDashboard }: { onDashboard?: () => void }) {

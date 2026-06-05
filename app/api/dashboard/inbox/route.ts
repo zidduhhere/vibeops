@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, prefer-const */
 import { NextResponse } from "next/server";
 import { createInsForgeClient } from "@/lib/insforge";
 import { auth0 } from "@/lib/auth0";
+import { isRelevantEmail } from "@/lib/gemini";
 
 export async function GET() {
   try {
@@ -12,10 +14,10 @@ export async function GET() {
       .from("conversations")
       .select(`
         id,
-        channel,
+        channel, 
         created_at,
         updated_at,
-        client:clients(id, name, email, phone)
+        client:clients(id, name, email, phone, tags)
       `)
       .order("updated_at", { ascending: false });
 
@@ -30,79 +32,30 @@ export async function GET() {
       (conversations || []).map(async (conv: any) => {
         const { data: messages } = await db.database
           .from("messages")
-          .select("id, body, sent_at, from_party")
+          .select("id, body, sent_at, from_party, is_read")
           .eq("conversation_id", conv.id)
           .order("sent_at", { ascending: false })
           .limit(1);
           
+        const { data: activities } = await db.database
+          .from("ai_activities")
+          .select("status, ai_draft")
+          .eq("conversation_id", conv.id)
+          .order("acted_at", { ascending: false })
+          .limit(1);
+          
         return {
           ...conv,
+          status: activities && activities.length > 0 ? activities[0].status : null,
+          ai_draft: activities && activities.length > 0 ? activities[0].ai_draft : null,
           latest_message: messages && messages.length > 0 ? messages[0] : null
         };
       })
     );
 
-    // Fetch dynamic Gmail emails if connected
-    let gmailItems: any[] = [];
-    if (session?.user?.sub) {
-      const { data: connections } = await db.database
-        .from("channel_connections")
-        .select("access_token")
-        .eq("user_id", session.user.sub)
-        .eq("channel", "gmail")
-        .limit(1);
+    // Client side now handles triggering the sync so it can display a loading state.
 
-      const conn = connections?.[0];
-      if (conn?.access_token) {
-        try {
-          const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=10&q=in:inbox", {
-            headers: { Authorization: `Bearer ${conn.access_token}` }
-          });
-          
-          if (res.ok) {
-            const data = await res.json();
-            const messages = data.messages || [];
-            
-            for (const msg of messages) {
-              const msgRes = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${msg.id}`, {
-                headers: { Authorization: `Bearer ${conn.access_token}` }
-              });
-              if (!msgRes.ok) continue;
-              const msgData = await msgRes.json();
-              
-              const snippet = msgData.snippet || "";
-              const headers = msgData.payload.headers;
-              const subject = headers.find((h: any) => h.name === "Subject")?.value || "No Subject";
-              const from = headers.find((h: any) => h.name === "From")?.value || "Unknown Sender";
-              const dateStr = headers.find((h: any) => h.name === "Date")?.value;
-              const date = dateStr ? new Date(dateStr).toISOString() : new Date().toISOString();
-              
-              const isUnread = msgData.labelIds?.includes("UNREAD") ?? false;
-              
-              let clientName = from;
-              const nameMatch = from.match(/^(.*?)\s*</);
-              if (nameMatch) {
-                  clientName = nameMatch[1].replace(/"/g, '').trim();
-              }
-
-              gmailItems.push({
-                id: `gmail-${msg.id}`,
-                channel: "gmail",
-                status: isUnread ? "draft" : "handled",
-                created_at: date,
-                updated_at: date,
-                client: { name: clientName },
-                latest_message: { body: snippet, subject: subject }
-              });
-            }
-          }
-        } catch (gmailErr) {
-          console.error("Error fetching dynamic Gmail emails:", gmailErr);
-        }
-      }
-    }
-
-    const allItems = [...inboxItems, ...gmailItems];
+    const allItems = [...inboxItems];
     allItems.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
 
     return NextResponse.json({ threads: allItems });

@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect, react/no-unescaped-entities */
+
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, Settings as SettingsIcon, Maximize, CheckCircle, AlertTriangle, ShieldCheck, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

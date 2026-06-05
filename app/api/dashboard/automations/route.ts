@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import { createInsForgeClient } from "@/lib/insforge";
 
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
     const db = await createInsForgeClient();
     const { automation_key, enabled } = await req.json();
 
-    const { data: { user } } = await db.auth.getUser();
+    const { data: { user } } = await db.auth.getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

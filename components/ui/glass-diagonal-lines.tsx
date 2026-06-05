@@ -43,7 +43,7 @@ export function GlassDiagonalLines({
             y2="100%"
             transform="translate(-40, 0)"
             className={cn(
-              "[stroke-width:48px]",
+              "stroke-[48px]",
               isPrimary
                 ? "stroke-primary opacity-[0.08] dark:opacity-[0.05]"
                 : "stroke-white opacity-[0.06]",
@@ -57,7 +57,7 @@ export function GlassDiagonalLines({
             y2="100%"
             transform="translate(-64, 0)"
             className={cn(
-              "[stroke-width:1px]",
+              "stroke-[1px]",
               isPrimary
                 ? "stroke-primary/20 dark:stroke-white/20"
                 : "stroke-white/30",
@@ -70,7 +70,7 @@ export function GlassDiagonalLines({
             y2="100%"
             transform="translate(-16, 0)"
             className={cn(
-              "[stroke-width:1px]",
+              "stroke-[1px]",
               isPrimary
                 ? "stroke-primary/20 dark:stroke-white/20"
                 : "stroke-white/30",
@@ -86,7 +86,7 @@ export function GlassDiagonalLines({
             y2="100%"
             transform="translate(40, 0)"
             className={cn(
-              "[stroke-width:48px]",
+              "stroke-[48px]",
               isPrimary
                 ? "stroke-primary opacity-[0.08] dark:opacity-[0.05]"
                 : "stroke-white opacity-[0.06]",
@@ -100,7 +100,7 @@ export function GlassDiagonalLines({
             y2="100%"
             transform="translate(16, 0)"
             className={cn(
-              "[stroke-width:1px]",
+              "stroke-[1px]",
               isPrimary
                 ? "stroke-primary/20 dark:stroke-white/20"
                 : "stroke-white/30",
@@ -113,7 +113,7 @@ export function GlassDiagonalLines({
             y2="100%"
             transform="translate(64, 0)"
             className={cn(
-              "[stroke-width:1px]",
+              "stroke-[1px]",
               isPrimary
                 ? "stroke-primary/20 dark:stroke-white/20"
                 : "stroke-white/30",

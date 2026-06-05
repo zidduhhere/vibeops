@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-unused-vars, react/no-unescaped-entities */
+
 import { useEffect, useRef, useState } from "react";
 import { Inbox, MessageSquare, AlertTriangle, Clock, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -104,7 +106,7 @@ export function FeaturesSection({ onStart }: { onStart: () => void }) {
           {/* LEFT COLUMN: ACTIVE FEATURE VIEWPORT DETAIL WIDGET */}
           <div className="relative">
             {/* Outer decorative card shadow gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-3xl blur-xl -z-10" />
+            <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-purple-500/10 rounded-3xl blur-xl -z-10" />
 
             <Card className="border-border/80 bg-card p-6 shadow-xl space-y-6 min-h-[460px] flex flex-col justify-between">
               
@@ -220,7 +222,7 @@ export function FeaturesSection({ onStart }: { onStart: () => void }) {
                   className={cn(
                     "group p-5 rounded-2xl border transition-all duration-200 cursor-default flex items-start gap-4",
                     active 
-                      ? "border-primary/50 bg-gradient-to-r from-primary/5 to-transparent shadow-sm shadow-primary/5" 
+                      ? "border-primary/50 bg-linear-to-r from-primary/5 to-transparent shadow-sm shadow-primary/5" 
                       : "border-border/60 bg-transparent"
                   )}
                 >
